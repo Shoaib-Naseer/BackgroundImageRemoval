@@ -1,30 +1,28 @@
-const api_key = 'Fm9af1gSCd6b5zNhC3Z3fCSf';
-// Requires "axios" and "form-data" to be installed (see https://www.npmjs.com/package/axios and https://www.npmjs.com/package/form-data)
-const axios = require('axios');
-const FormData = require('form-data');
-const fs = require('fs');
-const path = require('path');
+var axios = require('axios');
+var FormData = require('form-data');
+var fs = require('fs');
+var data = new FormData();
+data.append(
+  'image_file',
+  fs.createReadStream('/C:/Users/my pc/Desktop/carsss.jpg')
+);
 
-const formData = new FormData();
-formData.append('size', 'auto');
-formData.append('image_file', fs.createReadStream('sharjeel.jpg'), 'sharjeel');
-
-axios({
+var config = {
   method: 'post',
+  maxBodyLength: Infinity,
   url: 'https://api.remove.bg/v1.0/removebg',
-  data: formData,
-  responseType: 'arraybuffer',
   headers: {
-    ...formData.getHeaders(),
-    'X-Api-Key': api_key,
+    'X-Api-Key': 'Fm9af1gSCd6b5zNhC3Z3fCSf',
+    ...data.getHeaders(),
   },
-  encoding: null,
-})
-  .then((response) => {
-    if (response.status != 200)
-      return console.error('Error:', response.status, response.statusText);
-    fs.writeFileSync('no-bg.png', response.data);
+  data: data,
+};
+
+axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
   })
-  .catch((error) => {
-    return console.error('Request failed:', error);
+  .catch(function (error) {
+    console.log(error);
   });
+z;
