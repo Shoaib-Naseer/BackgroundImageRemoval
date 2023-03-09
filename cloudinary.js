@@ -13,6 +13,7 @@ const res = cloudinary.uploader.upload(
   'https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg',
   {
     public_id: 'olympic_flag',
+    // This will actually remove the background and then save it in cloudinary
     background_removal: 'cloudinary_ai'
   }
 );
